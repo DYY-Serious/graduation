@@ -13,14 +13,14 @@ public class R {
 
     private Object data;
 
-    public static R success() {
+    public static R SUCCESS() {
         R r = new R();
         r.setCode(200);
         r.setMessage("成功");
         return r;
     }
 
-    public static R success(Object data) {
+    public static R SUCCESS(Object data) {
         R r = new R();
         r.setCode(200);
         r.setMessage("成功");
@@ -28,14 +28,26 @@ public class R {
         return r;
     }
 
-    public static R error404() {
+    public static R ERRORMSG() {
+        R r = new R();
+        r.setMessage("未知错误");
+        return r;
+    }
+
+    public static R ERRORMSG(String msg) {
+        R r = new R();
+        r.setMessage(msg);
+        return r;
+    }
+
+    public static R ERROR404() {
         R r = new R();
         r.setCode(404);
         r.setMessage("失败，404");
         return r;
     }
 
-    public static R error403() {
+    public static R ERROR403() {
         R r = new R();
         r.setCode(403);
         r.setMessage("失败，403");

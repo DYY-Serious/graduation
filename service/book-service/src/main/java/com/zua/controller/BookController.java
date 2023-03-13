@@ -22,7 +22,7 @@ public class BookController {
     @GetMapping("get")
     public R getBooks(BookVo bookVo,Integer pageSize,Integer curPage) {
         IPage page = bookSerivce.getBookList(bookVo, pageSize, curPage);
-        return R.success(page);
+        return R.SUCCESS(page);
     }
 
     /**
@@ -33,7 +33,7 @@ public class BookController {
     @PostMapping("saveBook")
     public R saveBook(Book book) {
         bookSerivce.saveBook(book);
-        return R.success();
+        return R.SUCCESS();
     }
 
     /**
@@ -45,7 +45,7 @@ public class BookController {
     public R deleteBook(Book book) {
         // TODO 先判断图书是否被借阅，如果被借阅则不能被删除
         bookSerivce.removeById(book);
-        return R.success();
+        return R.SUCCESS();
     }
 
     /**
@@ -56,6 +56,6 @@ public class BookController {
     @PostMapping("editBook")
     public R editBook(Book book) {
         bookSerivce.updateById(book);
-        return R.success();
+        return R.SUCCESS();
     }
 }

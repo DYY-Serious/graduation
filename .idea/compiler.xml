@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="commons-config" />
+        <module name="commons-po" />
+        <module name="user-service" />
+        <module name="book-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="book-service" target="8" />
+      <module name="commons-config" target="8" />
+      <module name="commons-po" target="8" />
+      <module name="graduation" target="8" />
+      <module name="service" target="8" />
+      <module name="user-service" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="book-service" options="-parameters" />
+      <module name="commons-config" options="-parameters" />
+      <module name="commons-po" options="-parameters" />
+      <module name="graduation" options="" />
+      <module name="service" options="" />
+      <module name="user-service" options="-parameters" />
+    </option>
+  </component>
+</project>
