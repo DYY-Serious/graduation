@@ -1,17 +1,44 @@
 package com.zua.service.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zua.mapper.BookMapper;
 import com.zua.pojo.Book;
 import com.zua.service.BookSerivce;
+import com.zua.vo.BookVo;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements BookSerivce {
+    /**
+     * @author 乔培洋
+     * @param bookVo
+     * @param pageSize
+     * @param curPage
+     * @return
+     */
+    @Override
+    public IPage getBookList(BookVo bookVo, Integer pageSize, Integer curPage) {
+        IPage page = new Page(curPage,pageSize);
+        LambdaQueryWrapper<Book> queryWrapper = new LambdaQueryWrapper<Book>();
+        queryWrapper.like(bookVo.getName() != null, Book::getName, bookVo.getName());
+        queryWrapper.like(bookVo.getAuthor() != null, Book::getAuthor, bookVo.getAuthor());
+        queryWrapper.like(bookVo.getPublisher() != null, Book::getPublisher, bookVo.getPublisher());
+        return this.page(page, queryWrapper);
+    }
+
+    /**
+     * 保存图书
+     * @author 乔培洋
+     * @param book
+     */
     @Override
     public void saveBook(Book book) {
         String id = UUID.randomUUID().toString();

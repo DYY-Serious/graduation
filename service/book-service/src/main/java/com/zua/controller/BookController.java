@@ -1,13 +1,12 @@
 package com.zua.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zua.pojo.Book;
 import com.zua.service.BookSerivce;
 import com.zua.utils.R;
 import com.zua.vo.BookVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("books")
@@ -21,9 +20,9 @@ public class BookController {
      * @return
      */
     @GetMapping("get")
-    public R getBooks(BookVo bookVo) {
-        List<Book> bookList = bookSerivce.list();
-        return R.success(bookList);
+    public R getBooks(BookVo bookVo,Integer pageSize,Integer curPage) {
+        IPage page = bookSerivce.getBookList(bookVo, pageSize, curPage);
+        return R.success(page);
     }
 
     /**
@@ -44,6 +43,7 @@ public class BookController {
      */
     @PutMapping("deleteBook")
     public R deleteBook(Book book) {
+        // TODO 先判断图书是否被借阅，如果被借阅则不能被删除
         bookSerivce.removeById(book);
         return R.success();
     }
