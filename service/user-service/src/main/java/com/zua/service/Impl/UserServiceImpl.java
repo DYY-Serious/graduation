@@ -27,8 +27,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getUser(User user) {
-        User user1 = userMapper.getUser(user);
-        return user1;
+        user.setPassword(MD5.MD5Encode(user.getPassword(),"UTF-8"));
+        return userMapper.getUser(user);
     }
 
 }
