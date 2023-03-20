@@ -4,6 +4,7 @@ import com.zua.pojo.User;
 import com.zua.service.UserService;
 import com.zua.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("login")
+    @PostMapping("login")
     public R loginUser(User user) {
         return R.SUCCESS(userService.getUser(user));
     }

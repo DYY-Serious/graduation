@@ -22,4 +22,6 @@ public class Book_Borrow {
     private String endDate;
     @TableField("ENDDATE_REL")
     private String endDate_rel;
+    @TableField("STATUS")
+    private int status;
 }
