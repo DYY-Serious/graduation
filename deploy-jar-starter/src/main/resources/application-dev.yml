@@ -16,3 +16,12 @@ spring:
 mybatis-plus:
   type-aliases-package: com.zua
   mapper-locations: classpath*:com/zua/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      update-strategy: not_empty
+
+logging:
+  pattern:
+    console:  '%d{yyyy-MM-dd} [%thread] %-5level %logger- %msg%n'
