@@ -5,7 +5,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,9 +13,12 @@ public class MybatisMetaHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         String id = UUID.randomUUID().toString().replace("-", "");
+        //设置各实体类的id
         metaObject.setValue("id",id);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //设置创建时间
         metaObject.setValue("createTime", format.format(new Date()));
+        //设置更新
         metaObject.setValue("updateTime", format.format(new Date()));
     }
 

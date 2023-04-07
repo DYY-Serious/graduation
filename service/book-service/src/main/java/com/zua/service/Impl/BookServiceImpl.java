@@ -21,23 +21,25 @@ import java.util.UUID;
 
 @Service
 public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements BookSerivce {
+
     @Autowired
     private BookBorrowService bookBorrowService;
+
     /**
      * author 乔培洋
-     * @param book
+     * @param id
      */
     @Override
-    public R deleteBook(Book book) {
+    public R deleteBook(String id) {
         //删除图书之前先判断图书是否被借阅，如果被借阅则不能被删除
         LambdaQueryWrapper<Book_Borrow> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(book.getId() != null,Book_Borrow::getBookId, book.getId());
+        queryWrapper.eq(Book_Borrow::getBookId, id);
         List<Book_Borrow> book_borrowList = bookBorrowService.list(queryWrapper);
         if (book_borrowList != null && book_borrowList.size() > 0) {
             return R.ERRORMSG("此书正在被借阅,暂时不能删除");
         }
-        this.removeById(book);
-        return R.SUCCESS();
+        this.removeById(id);
+        return R.SUCCESS("删除成功");
     }
 
     /**
@@ -48,28 +50,42 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
      * @return
      */
     @Override
-    public IPage getBookList(BookVo bookVo, Integer pageSize, Integer curPage) {
-        IPage page = new Page(curPage,pageSize);
-        LambdaQueryWrapper<Book> queryWrapper = new LambdaQueryWrapper<Book>();
-        queryWrapper.like(bookVo.getName() != null, Book::getName, bookVo.getName());
-        queryWrapper.like(bookVo.getAuthor() != null, Book::getAuthor, bookVo.getAuthor());
-        queryWrapper.like(bookVo.getPublisher() != null, Book::getPublisher, bookVo.getPublisher());
-        return this.page(page, queryWrapper);
+    public IPage<Book> getBookList(BookVo bookVo, Integer pageSize, Integer curPage) {
+        IPage<Book> page = new Page<Book>(curPage,pageSize);
+        return this.baseMapper.getBookList(page, bookVo);
     }
 
     /**
-     * 保存图书
+     * 查询库存数大于0的图书
      * @author 乔培洋
-     * @param book
+     * @param bookVo
+     * @param pageSize
+     * @param curPage
+     * @return
      */
     @Override
-    public void saveBook(Book book) {
-        String id = UUID.randomUUID().toString();
-        id = id.replace("-","");
-        book.setId(id);
-        book.setBookTypeId(id);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        book.setPublisherTime(format.format(new Date()));
-        this.save(book);
+    public IPage<Book> getBookListByStore(BookVo bookVo, Integer pageSize, Integer curPage) {
+        IPage<Book> page = new Page<Book>(curPage,pageSize);
+        return this.baseMapper.getBookListByStore(page, bookVo);
+    }
+
+    /**
+     * 减少库存
+     * @param bookId
+     * @return
+     */
+    @Override
+    public int subStore(String bookId) {
+        return this.baseMapper.subStore(bookId);
+    }
+
+    /**
+     * 还书更新库存
+     * @param bookId
+     * @return
+     */
+    @Override
+    public int addStore(String bookId) {
+        return this.baseMapper.addStore(bookId);
     }
 }

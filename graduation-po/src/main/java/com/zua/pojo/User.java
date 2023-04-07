@@ -15,17 +15,19 @@ public class User implements Serializable {
     @TableId
     @TableField(fill = FieldFill.INSERT)
     private String id;
-    private String studentId;
+    @TableField(exist = false)
+    private String roleId;
+    private String account;
     private String username;
     @TableField(select = false)
     private String password;
     private String phone;
     private String email;
     private String sex;
-    private Integer isAdmin;
-    private Integer isDeleted;
+    private Integer isAdmin = 0;
+    private Integer isDeleted = 0;
     //账号状态,0-未激活，1-可用，2-停用
-    private Integer accountStatus;
+    private Integer accountStatus = 0;
     //创建时间
     @TableField(fill = FieldFill.INSERT)
     private String createTime;

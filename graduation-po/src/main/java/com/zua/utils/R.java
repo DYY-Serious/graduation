@@ -35,6 +35,14 @@ public class R {
         return r;
     }
 
+    public static R SUCCESS(String msg, Object data) {
+        R r = new R();
+        r.setCode(StatusCode.SUCCESS_CODE);
+        r.setMessage(msg);
+        r.setData(data);
+        return r;
+    }
+
     public static R ERRORMSG() {
         R r = new R();
         r.setCode(StatusCode.ERROR_CODE);
@@ -60,6 +68,28 @@ public class R {
         R r = new R();
         r.setCode(StatusCode.ERROR_CODE);
         r.setMessage("失败，403");
+        return r;
+    }
+
+    public static R ERROR(String message, Integer code) {
+        R r = new R();
+        r.setCode(code);
+        r.setMessage(message);
+        return r;
+    }
+
+    public static R ERROR(String message, Object data) {
+        R r = new R();
+        r.setCode(500);
+        r.setMessage(message);
+        r.setData(data);
+        return r;
+    }
+
+    public static R MESSAGE(String message,Integer code) {
+        R r = new R();
+        r.setCode(code);
+        r.setMessage(message);
         return r;
     }
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zua.mapper.BookMapper">
+    <select id="getBookList" resultType="bookVo">
+        select b.*,bt.category_name from book b,booktype bt where
+        b.category_id = bt.id
+        <if test="book.categoryId != null and book.categoryId != ''">
+            and bt.id = #{book.categoryId}
+        </if>
+        <if test="book.bookName != null and book.bookName != ''">
+            and b.book_name like concat('%',#{book.bookName},'%')
+        </if>
+        <if test="book.bookPlaceNum != null and book.bookPlaceNum != ''">
+            and b.book_place_num = concat('%',#{book.bookPlaceNum},'%')
+        </if>
+        <if test="book.bookAuthor != null and book.bookAuthor != ''">
+            and b.book_author = concat('%',#{book.bookAuthor},'%')
+        </if>
+    </select>
+    <select id="getBookListByStore" resultType="bookVo">
+        select b.*,bt.category_name from book b,booktype bt where
+        b.category_id = bt.id and b.book_store > 0
+        <if test="book.categoryId != null and book.categoryId != ''">
+            and bt.id = #{book.categoryId}
+        </if>
+        <if test="book.bookName != null and book.bookName != ''">
+            and b.book_name like concat('%',#{book.bookName},'%')
+        </if>
+        <if test="book.bookPlaceNum != null and book.bookPlaceNum != ''">
+            and b.book_place_num = concat('%',#{book.bookPlaceNum},'%')
+        </if>
+        <if test="book.bookAuthor != null and book.bookAuthor != ''">
+            and b.book_author = concat('%',#{book.bookAuthor},'%')
+        </if>
+    </select>
+    <update id="subStore">
+        update book set book_store = book_store - 1 where id =#{bookId} and book_store > 0
+    </update>
+    <update id="addStore">
+        update book set book_store = book_store + 1 where id =#{bookId}
+    </update>
+</mapper>

@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @TableName("book")
@@ -17,19 +15,16 @@ public class Book implements Serializable {
     @TableId
     @TableField(fill = FieldFill.INSERT)
     private String id;
-    private String name;
-    @TableField("booktypeid")
-    private String bookTypeId;
-    private String author;
-    private String introduction;
-    private String publisher;
-    @TableField("publishertime")
-    private String publisherTime;
-    private Integer stock;
-    private Integer status;
-    private Integer total;
+    private String categoryId;
+    private String bookName;
+    private String bookCode;
+    private String bookPlaceNum;
+    private String bookAuthor;
+    private String bookProduct;
+    private Double bookPrice;
+    private Integer bookStore;
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private String createTime;
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    private String updateTime;
 }

@@ -9,9 +9,13 @@ import com.zua.vo.BookVo;
 import java.util.List;
 
 public interface BookSerivce extends IService<Book> {
-    R deleteBook(Book book);
+    R deleteBook(String id);
 
-    IPage getBookList(BookVo bookVo, Integer pageSize, Integer curPage);
+    IPage<Book> getBookList(BookVo bookVo, Integer pageSize, Integer curPage);
 
-    void saveBook(Book book);
+    IPage<Book> getBookListByStore(BookVo bookVo, Integer pageSize, Integer curPage);
+
+    int subStore(String bookId);
+
+    int addStore(String bookId);
 }
