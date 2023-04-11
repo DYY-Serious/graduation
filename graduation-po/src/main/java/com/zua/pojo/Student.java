@@ -19,7 +19,6 @@ public class Student implements Serializable {
     private String idCard;
     private String sex;
     private String phone;
-    @TableField(select = false)
     private String password;
     private String accountStatus = "1"; //审核状态 0：未审核   1：已审核
     private String studentStatus = "1"; //用户状态 0：停用   1：启用

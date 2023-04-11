@@ -53,4 +53,18 @@ public interface BookBorrowService extends IService<Book_Borrow> {
      * @return
      */
     R getStudentBorrowInfoList(BorrowInfoVo borrowInfoVo);
+
+    /**
+     * 用户借阅列表
+     * @param bookBorrowVo
+     * @return
+     */
+    IPage<ReturnBook> getAllBorrowList(ReturnBookVo bookBorrowVo);
+
+    /**
+     * 续租
+     * @param book_borrow
+     * @return
+     */
+    R addTime(Book_Borrow book_borrow);
 }

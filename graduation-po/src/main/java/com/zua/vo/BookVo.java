@@ -8,4 +8,6 @@ import lombok.EqualsAndHashCode;
 @Data
 public class BookVo extends Book {
     private String categoryName;
+    private String name;
+    private Integer value;
 }

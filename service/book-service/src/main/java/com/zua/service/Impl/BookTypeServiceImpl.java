@@ -8,13 +8,16 @@ import com.zua.mapper.BookMapper;
 import com.zua.mapper.BookTypeMapper;
 import com.zua.pojo.Book;
 import com.zua.pojo.BookType;
+import com.zua.pojo.CategoryEcharts;
 import com.zua.pojo.User;
 import com.zua.service.BookTypeService;
 import com.zua.utils.R;
+import com.zua.vo.CategoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -92,5 +95,24 @@ public class BookTypeServiceImpl extends ServiceImpl<BookTypeMapper, BookType> i
         }
         this.removeById(id);
         return R.SUCCESS("删除成功");
+    }
+
+    /**
+     * 分类统计
+     * @return
+     */
+    @Override
+    public CategoryEcharts getCategoryVo() {
+        CategoryEcharts echarts = new CategoryEcharts();
+        List<CategoryVo> categoryVo = this.baseMapper.getCategoryVo();
+        List<String> names = new ArrayList<>();
+        List<Integer> counts = new ArrayList<>();
+        for(int i =0;i<categoryVo.size();i++){
+            names.add(categoryVo.get(i).getCategoryName());
+            counts.add(categoryVo.get(i).getBookCount());
+        }
+        echarts.setNames(names);
+        echarts.setCounts(counts);
+        return echarts;
     }
 }

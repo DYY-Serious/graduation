@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zua.mapper.BookBorrowMapper;
+import com.zua.pojo.Book;
 import com.zua.pojo.Book_Borrow;
 import com.zua.pojo.BorrowInfo;
 import com.zua.pojo.ReturnBook;
@@ -52,6 +53,7 @@ public class BookBorrowServiceImpl extends ServiceImpl<BookBorrowMapper, Book_Bo
                 if (res > 0) {
                     Book_Borrow book_borrow = new Book_Borrow();
                     book_borrow.setBookId(bookId);
+                    book_borrow.setStudentId(bookBorrowVo.getStudentId());
                     book_borrow.setUserId(bookBorrowVo.getUserId());
                     book_borrow.setBorrowTime(bookBorrowVo.getBorrowTime());
                     book_borrow.setReturnTime(bookBorrowVo.getReturnTime());
@@ -165,6 +167,42 @@ public class BookBorrowServiceImpl extends ServiceImpl<BookBorrowMapper, Book_Bo
      */
     @Override
     public R getStudentBorrowInfoList(BorrowInfoVo borrowInfoVo) {
-        return null;
+        Page<BorrowInfo> page = new Page<BorrowInfo>(borrowInfoVo.getCurPage(),borrowInfoVo.getPageSize());
+        IPage<BorrowInfo> borrowInfoList = this.baseMapper.getStudentBorrowInfoList(page, borrowInfoVo);
+        return R.SUCCESS("查询成功",borrowInfoList);
+    }
+
+    /**
+     * 获取用户借阅列表
+     * @param returnBookVo
+     * @return
+     */
+    @Override
+    public IPage<ReturnBook> getAllBorrowList(ReturnBookVo returnBookVo) {
+        //构造分页对象
+        Page<ReturnBook> page = new Page<>(returnBookVo.getCurPage(),returnBookVo.getPageSize());
+        IPage<ReturnBook> borrowList = this.baseMapper.getAllBorrowList(page, returnBookVo);
+        return borrowList;
+    }
+
+    /**
+     * 续租
+     * @param book_borrow
+     * @return
+     */
+    @Override
+    @Transactional
+    public R addTime(Book_Borrow book_borrow) {
+        Book_Borrow byId = this.getById(book_borrow.getId());
+        //如果图书已经归还，续租将图书库存减1
+        if (byId != null && byId.getBorrowStatus().equals("2")) {
+            Book book = bookSerivce.getById(byId.getBookId());
+            book.setBookStore(book.getBookStore() - 1);
+            bookSerivce.updateById(book);
+        }
+        book_borrow.setBorrowStatus("1");
+        book_borrow.setApplyStatus("0");
+        this.updateById(book_borrow);
+        return R.SUCCESS("续期成功");
     }
 }

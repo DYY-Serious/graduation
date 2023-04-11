@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zua.mapper.SeatMapper">
+
+    <select id="getByQy" resultType="com.zua.vo.SeatStoreVo">
+        SELECT
+            parent_name NAME,
+            count( STATUS )
+        VALUE
+
+        FROM
+            seat
+        WHERE
+            STATUS = '0'
+            AND parent_name IS NOT NULL
+        GROUP BY
+            parent_name
+    </select>
+</mapper>

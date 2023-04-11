@@ -18,6 +18,7 @@ public class Book_Borrow implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private String id;
     private String bookId;
+    private String studentId;
     private String userId;
     private Date borrowTime;
     private Date returnTime;

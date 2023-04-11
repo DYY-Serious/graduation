@@ -35,6 +35,21 @@
             and b.book_author = concat('%',#{book.bookAuthor},'%')
         </if>
     </select>
+    <select id="getHotBook" resultType="com.zua.vo.BookVo">
+        SELECT
+            any_value ( bk.book_name ) AS NAME,
+            count( b.user_id ) AS
+        VALUE
+        FROM
+            book AS bk
+            LEFT JOIN book_borrow AS b ON bk.id = b.book_id
+        GROUP BY
+            b.book_id
+        ORDER BY
+        VALUE
+        DESC
+            LIMIT 10
+    </select>
     <update id="subStore">
         update book set book_store = book_store - 1 where id =#{bookId} and book_store > 0
     </update>

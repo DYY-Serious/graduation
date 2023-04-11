@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zua.mapper.SeatInfoMapper">
+
+    <select id="getListByType" resultType="com.zua.vo.SeatInfoVo">
+        SELECT
+        s.id,
+        st.student_name,
+        st.student_id,
+        s.NAME,
+        s.parent_name,
+        si.STATUS,
+        si.user_id
+        FROM
+        student st,
+        seat s,
+        seatinfo si
+        WHERE
+        s.id = si.seat_id
+        AND si.user_id = #{id}
+        AND st.id = #{id}
+        <if test="seatInfoVo.studentName != null and seatInfoVo.studentName != ''">
+            and st.student_name like concat('%',#{seatInfoVo.studentName},'%')
+        </if>
+        <if test="seatInfoVo.studentId != null and seatInfoVo.studentId != ''">
+            and st.student_id = #{seatInfoVo.studentId}
+        </if>
+        <if test="seatInfoVo.parentName != null and seatInfoVo.parentName != ''">
+            and s.parent_name = #{seatInfoVo.parentName}
+        </if>
+    </select>
+    <select id="getListAll" resultType="com.zua.vo.SeatInfoVo">
+        SELECT
+        res.*,
+        st.student_name,
+        st.student_id
+        FROM
+        (
+        SELECT
+        s.id,
+        s.NAME,
+        s.parent_name,
+        si.STATUS,
+        si.user_id
+        FROM
+        seatinfo si
+        LEFT JOIN seat s ON s.id = si.seat_id
+        ) AS res
+        INNER JOIN student st ON st.id = res.user_id
+        <if test="seatInfoVo.studentName != null and seatInfoVo.studentName != ''">
+            and st.student_name like concat('%',#{seatInfoVo.studentName},'%')
+        </if>
+        <if test="seatInfoVo.studentId != null and seatInfoVo.studentId != ''">
+            and st.student_id = #{seatInfoVo.studentId}
+        </if>
+        <if test="seatInfoVo.parentName != null and seatInfoVo.parentName != ''">
+            and res.parent_name = #{seatInfoVo.parentName}
+        </if>
+    </select>
+</mapper>

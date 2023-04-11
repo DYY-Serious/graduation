@@ -2,6 +2,7 @@ package com.zua.utils;
 
 import com.zua.pojo.Class;
 import com.zua.pojo.Menu;
+import com.zua.pojo.Seat;
 import com.zua.vo.RouterVO;
 import org.springframework.beans.BeanUtils;
 
@@ -82,5 +83,21 @@ public class MakeTree {
                 });
         return list;
 
+    }
+
+    public static List<Seat> makeSeatTree(List<Seat> seatList, String pid) {
+        List<Seat> list = new ArrayList<Seat>();
+        Optional.ofNullable(seatList).orElse(new ArrayList<>())
+                .stream()
+                .filter(item -> item != null && Objects.equals(item.getParentId(), pid))
+                .forEach(dom -> {
+                    Seat seat = new Seat();
+                    BeanUtils.copyProperties(dom, seat);//查询该项的下级菜单
+                    List<Seat> seats = makeSeatTree(seatList,
+                            dom.getId());
+                    seat.setChildren(seats);
+                    list.add(seat);
+                });
+        return list;
     }
 }

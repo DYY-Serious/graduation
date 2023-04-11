@@ -18,4 +18,6 @@ public interface BookSerivce extends IService<Book> {
     int subStore(String bookId);
 
     int addStore(String bookId);
+
+    List<BookVo> getHotBook();
 }

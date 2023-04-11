@@ -34,6 +34,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
         //删除图书之前先判断图书是否被借阅，如果被借阅则不能被删除
         LambdaQueryWrapper<Book_Borrow> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Book_Borrow::getBookId, id);
+        queryWrapper.eq(Book_Borrow::getBorrowStatus, "1");
         List<Book_Borrow> book_borrowList = bookBorrowService.list(queryWrapper);
         if (book_borrowList != null && book_borrowList.size() > 0) {
             return R.ERRORMSG("此书正在被借阅,暂时不能删除");
@@ -87,5 +88,14 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
     @Override
     public int addStore(String bookId) {
         return this.baseMapper.addStore(bookId);
+    }
+
+    /**
+     * 获取热门图书
+     * @return
+     */
+    @Override
+    public List<BookVo> getHotBook() {
+        return this.baseMapper.getHotBook();
     }
 }

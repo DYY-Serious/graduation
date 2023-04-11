@@ -19,7 +19,6 @@ public class User implements Serializable {
     private String roleId;
     private String account;
     private String username;
-    @TableField(select = false)
     private String password;
     private String phone;
     private String email;

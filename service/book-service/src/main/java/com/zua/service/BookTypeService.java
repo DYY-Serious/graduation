@@ -3,6 +3,7 @@ package com.zua.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zua.pojo.BookType;
+import com.zua.pojo.CategoryEcharts;
 import com.zua.utils.R;
 
 public interface BookTypeService extends IService<BookType> {
@@ -36,4 +37,10 @@ public interface BookTypeService extends IService<BookType> {
      * @return
      */
     R delType(String id);
+
+    /**
+     * 分类统计
+     * @return
+     */
+    CategoryEcharts getCategoryVo();
 }

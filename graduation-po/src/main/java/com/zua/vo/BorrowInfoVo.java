@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 public class BorrowInfoVo extends BorrowInfo {
     private Integer curPage;
     private Integer pageSize;
+    private String userId;
     private String studentId;
     private String studentName;
     private String bookName;

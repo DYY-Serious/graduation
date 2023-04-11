@@ -12,13 +12,10 @@ import com.zua.utils.*;
 import com.zua.vo.LoginVo;
 import com.zua.vo.RouterVO;
 import io.jsonwebtoken.Claims;
-import org.apache.commons.lang.StringUtils;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,16 +44,14 @@ public class LoginController {
      */
     @PostMapping("login")
     public R login(@RequestBody LoginVo loginVo) {
-        if (StringUtils.isEmpty(loginVo.getAccount())
-                || StringUtils.isEmpty(loginVo.getPassword())
-                || StringUtils.isEmpty(loginVo.getLoginType())) {
-            return R.ERRORMSG("用户名、密码或用户类型不能为空!");
-        }
         if (loginVo.getLoginType().equals("0")) { //0 ：学生
             QueryWrapper<Student> query = new QueryWrapper<>();
             query.lambda().eq(Student::getStudentId, loginVo.getAccount());
             query.lambda().eq(Student::getPassword, MD5.MD5Encode(loginVo.getPassword(), "utf-8"));
             Student one = studentService.getOne(query);
+            if (one != null && !one.getAccountStatus().equals("1")) {
+                return R.ERRORMSG("账户未激活");
+            }
             if (one == null) {
                 return R.ERRORMSG("用户名或密码错误!");
             }
@@ -70,8 +65,11 @@ public class LoginController {
             query.lambda().eq(User::getAccount, loginVo.getAccount());
             query.lambda().eq(User::getPassword, MD5.MD5Encode(loginVo.getPassword(), "utf-8"));
             User one = userService.getOne(query);
+            if (one != null && one.getAccountStatus() != 1) {
+                return R.ERRORMSG("账户未激活");
+            }
             if (one == null) {
-                return R.ERRORMSG("用户名或密码错误!");
+                return R.ERRORMSG("用户名或密码错误");
             }
             LoginResult result = new LoginResult();
             result.setId(one.getId());
@@ -94,11 +92,11 @@ public class LoginController {
     public R getInfo(String id, HttpServletRequest request) {
         //从请求的头部获取token
         String token = request.getHeader("token");
-        if (StringUtils.isEmpty(token)) {
-            return R.ERROR("token过期!",600);
-        }
         //从token里面解析用户的类型
         Claims claims = jwtUtils.getClaimsFromToken(token);
+        if (claims == null) {
+            return R.ERROR("过期登入!",600);
+        }
         Object userType = claims.get("userType");
 
         //定义用户信息类
@@ -144,13 +142,13 @@ public class LoginController {
     //获取菜单
     @GetMapping("/getMenuList")
     public R getMenuList(HttpServletRequest request) {
-        //获取token
+        //从请求的头部获取token
         String token = request.getHeader("token");
-        if (StringUtils.isEmpty(token)) {
-            return R.ERROR("token过期!",600);
-        }
-        //获取用户类型
+        //从token里面解析用户的类型
         Claims claims = jwtUtils.getClaimsFromToken(token);
+        if (claims == null) {
+            return R.ERROR("过期登入!",600);
+        }
         Object userType = claims.get("userType");
         Object id = claims.get("id");
         if (userType.equals("0")) { //读者
@@ -159,8 +157,7 @@ public class LoginController {
             //获取权限信息
             List<Menu> menuList =
                     menuService.getReaderMenuByUserId(student.getId());
-            List<Menu> collect = menuList.stream().filter(item -> item !=
-                    null && !item.getType().equals("2")).collect(Collectors.toList());
+            List<Menu> collect = menuList.stream().filter(item -> item != null && !item.getType().equals("2")).collect(Collectors.toList());
             if (collect.size() == 0) {
                 return R.ERRORMSG("暂无登录权限，请联系管理员!");
             }
@@ -170,10 +167,8 @@ public class LoginController {
             //获取用户信息
             User user = userService.loadById(id);
             //获取权限信息
-            List<Menu> menuList =
-                    menuService.getMenuByUserId(user.getId());
-            List<Menu> collect = menuList.stream().filter(item -> item !=
-                    null && !item.getType().equals("2")).collect(Collectors.toList());
+            List<Menu> menuList = menuService.getMenuByUserId(user.getId());
+            List<Menu> collect = menuList.stream().filter(item -> item != null && !item.getType().equals("2")).collect(Collectors.toList());
             if (collect.size() == 0) {
                 return R.ERRORMSG("暂无登录权限，请联系管理员!");
             }

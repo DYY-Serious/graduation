@@ -6,6 +6,7 @@
         <module>book-service</module>
         <module>user-service</module>
         <module>notice-service</module>
+        <module>seat-service</module>
     </modules>
     <parent>
         <artifactId>graduation</artifactId>
