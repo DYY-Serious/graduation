@@ -13,10 +13,10 @@
             and b.book_name like concat('%',#{book.bookName},'%')
         </if>
         <if test="book.bookPlaceNum != null and book.bookPlaceNum != ''">
-            and b.book_place_num = concat('%',#{book.bookPlaceNum},'%')
+            and b.book_place_num like concat('%',#{book.bookPlaceNum},'%')
         </if>
         <if test="book.bookAuthor != null and book.bookAuthor != ''">
-            and b.book_author = concat('%',#{book.bookAuthor},'%')
+            and b.book_author like concat('%',#{book.bookAuthor},'%')
         </if>
     </select>
     <select id="getBookListByStore" resultType="bookVo">
@@ -29,10 +29,10 @@
             and b.book_name like concat('%',#{book.bookName},'%')
         </if>
         <if test="book.bookPlaceNum != null and book.bookPlaceNum != ''">
-            and b.book_place_num = concat('%',#{book.bookPlaceNum},'%')
+            and b.book_place_num like concat('%',#{book.bookPlaceNum},'%')
         </if>
         <if test="book.bookAuthor != null and book.bookAuthor != ''">
-            and b.book_author = concat('%',#{book.bookAuthor},'%')
+            and b.book_author like concat('%',#{book.bookAuthor},'%')
         </if>
     </select>
     <select id="getHotBook" resultType="com.zua.vo.BookVo">

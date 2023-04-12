@@ -23,6 +23,7 @@ public class Book implements Serializable {
     private String bookProduct;
     private Double bookPrice;
     private Integer bookStore;
+    private String img;
     @TableField(fill = FieldFill.INSERT)
     private String createTime;
     @TableField(fill = FieldFill.INSERT_UPDATE)

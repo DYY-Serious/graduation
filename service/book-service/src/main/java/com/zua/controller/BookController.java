@@ -31,7 +31,7 @@ public class BookController {
      */
     @Auth
     @GetMapping("list")
-    public R getBooks(BookVo bookVo, Integer pageSize, Integer curPage, HttpServletRequest request) {
+    public R getBooks(BookVo bookVo, Integer pageSize, Integer curPage) {
         IPage<Book> page = bookSerivce.getBookList(bookVo, pageSize, curPage);
         return R.SUCCESS(page);
     }
@@ -90,6 +90,7 @@ public class BookController {
     @GetMapping("/getHotBook")
     public R getHotBook(){
         List<BookVo> hotBook = bookSerivce.getHotBook();
+        hotBook.removeIf(bookVo -> bookVo.getValue() == 0);
         return R.SUCCESS("查询成功",hotBook);
     }
 }
