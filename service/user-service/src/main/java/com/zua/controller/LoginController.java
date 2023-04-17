@@ -8,7 +8,7 @@ import com.zua.pojo.User;
 import com.zua.service.MenuService;
 import com.zua.service.StudentService;
 import com.zua.service.UserService;
-import com.zua.utils.*;
+import com.zua.util.*;
 import com.zua.vo.LoginVo;
 import com.zua.vo.RouterVO;
 import io.jsonwebtoken.Claims;
@@ -106,7 +106,7 @@ public class LoginController {
             Student student = studentService.getById(id);
             loginInfo.setIntroduction(student.getStudentName());
             loginInfo.setName(student.getStudentName());
-            loginInfo.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+            loginInfo.setAvatar(student.getImage());
             //权限字段查询与设置
             List<Menu> menuList = menuService.getReaderMenuByUserId(id);
             List<String> collect = menuList.stream().filter(item -> item != null && item.getCode() != null).map(item ->
@@ -122,7 +122,7 @@ public class LoginController {
             User user = userService.getById(id);
             loginInfo.setIntroduction(user.getUsername());
             loginInfo.setName(user.getUsername());
-            loginInfo.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+            loginInfo.setAvatar(user.getImage());
             //权限字段查询与设置
             List<Menu> menuList = menuService.getMenuByUserId(id);
             List<String> collect = menuList.stream().filter(item -> item != null && item.getCode() != null).map(item ->

@@ -2,8 +2,7 @@ package com.zua.webConifg;
 
 import com.zua.annotation.Auth;
 import com.zua.self.SelfException;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.R;
+import com.zua.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

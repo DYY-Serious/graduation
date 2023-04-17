@@ -1,13 +1,10 @@
 package com.zua.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zua.annotation.Auth;
 import com.zua.pojo.Menu;
-import com.zua.pojo.Role;
 import com.zua.service.MenuService;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.R;
-import io.jsonwebtoken.Claims;
+import com.zua.util.JwtUtils;
+import com.zua.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

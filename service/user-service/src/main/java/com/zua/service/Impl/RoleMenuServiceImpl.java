@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zua.mapper.RoleMenuMapper;
 import com.zua.pojo.RoleMenu;
 import com.zua.service.RoleMenuService;
-import com.zua.utils.R;
+import com.zua.util.R;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

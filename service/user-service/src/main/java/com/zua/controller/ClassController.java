@@ -1,11 +1,8 @@
 package com.zua.controller;
 
 import com.zua.pojo.Class;
-import com.zua.pojo.Menu;
 import com.zua.service.ClassService;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.R;
-import io.jsonwebtoken.Claims;
+import com.zua.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

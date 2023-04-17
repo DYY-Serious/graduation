@@ -1,4 +1,4 @@
-package com.zua.utils;
+package com.zua.util;
 
 import java.security.MessageDigest;
 
@@ -43,7 +43,4 @@ public class MD5 {
     return hexDigIts[d1] + hexDigIts[d2];
   }
 
-  public static void main(String[] args) {
-    System.out.println(MD5Encode("666666", "utf8"));
-  }
 }

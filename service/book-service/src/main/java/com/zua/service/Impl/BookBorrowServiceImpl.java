@@ -5,22 +5,18 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zua.mapper.BookBorrowMapper;
-import com.zua.pojo.Book;
-import com.zua.pojo.Book_Borrow;
-import com.zua.pojo.BorrowInfo;
-import com.zua.pojo.ReturnBook;
+import com.zua.pojo.*;
 import com.zua.service.BookBorrowService;
 import com.zua.service.BookSerivce;
-import com.zua.utils.R;
+import com.zua.service.PotDayService;
+import com.zua.util.R;
 import com.zua.vo.BookBorrowVo;
 import com.zua.vo.BorrowInfoVo;
 import com.zua.vo.ReturnBookVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -30,6 +26,9 @@ public class BookBorrowServiceImpl extends ServiceImpl<BookBorrowMapper, Book_Bo
 
     @Autowired
     private BookSerivce bookSerivce;
+
+    @Autowired
+    private PotDayService potDayService;
 
     private Lock lock = new ReentrantLock();
 
@@ -187,22 +186,48 @@ public class BookBorrowServiceImpl extends ServiceImpl<BookBorrowMapper, Book_Bo
 
     /**
      * 续租
-     * @param book_borrow
+     * @param potDay
      * @return
      */
     @Override
     @Transactional
-    public R addTime(Book_Borrow book_borrow) {
-        Book_Borrow byId = this.getById(book_borrow.getId());
-        //如果图书已经归还，续租将图书库存减1
-        if (byId != null && byId.getBorrowStatus().equals("2")) {
-            Book book = bookSerivce.getById(byId.getBookId());
-            book.setBookStore(book.getBookStore() - 1);
-            bookSerivce.updateById(book);
-        }
+    public R addTime(PotDay potDay) {
+        Book_Borrow book_borrow = this.getById(potDay.getBorrowId());
+//        //如果图书已经归还，续租将图书库存减1
+//        if (byId != null && byId.getBorrowStatus().equals("2")) {
+//            Book book = bookSerivce.getById(byId.getBookId());
+//            book.setBookStore(book.getBookStore() - 1);
+//            bookSerivce.updateById(book);
+//        }
         book_borrow.setBorrowStatus("1");
         book_borrow.setApplyStatus("0");
         this.updateById(book_borrow);
-        return R.SUCCESS("续期成功");
+        potDayService.save(potDay);
+        return R.SUCCESS("续期成功,等待审核");
+    }
+
+    /**
+     * 审核图书
+     * @return
+     */
+    @Override
+    @Transactional
+    public R updateReturnTime(Book_Borrow book_borrow) {
+        book_borrow = this.getById(book_borrow.getId());
+        //如果图书已经归还，续租将图书库存减1
+        if (book_borrow != null && book_borrow.getBorrowStatus().equals("2")) {
+            Book book = bookSerivce.getById(book_borrow.getBookId());
+            book.setBookStore(book.getBookStore() - 1);
+            bookSerivce.updateById(book);
+        }
+        //查询续期信息
+        LambdaQueryWrapper<PotDay> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(PotDay::getBorrowId,book_borrow.getId());
+        PotDay one = potDayService.getOne(queryWrapper);
+        //更新归还日期
+        book_borrow.setReturnTime(one.getReturnTime());
+        book_borrow.setApplyStatus("1");
+        this.updateById(book_borrow);
+        return R.SUCCESS("审核成功");
     }
 }

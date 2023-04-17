@@ -6,15 +6,13 @@ import com.zua.pojo.Assign;
 import com.zua.pojo.Role;
 import com.zua.service.RoleMenuService;
 import com.zua.service.RoleService;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.R;
+import com.zua.util.JwtUtils;
+import com.zua.util.R;
 import com.zua.vo.AssignVo;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("/role")

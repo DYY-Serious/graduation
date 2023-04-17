@@ -1,4 +1,4 @@
-package com.zua.utils;
+package com.zua.util;
 
 public enum ExceptionEnum {
     SERVER_ERROR(500, "服务器异常！"),

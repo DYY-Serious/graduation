@@ -5,11 +5,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zua.mapper.MenuMapper;
 import com.zua.pojo.Menu;
 import com.zua.service.MenuService;
-import com.zua.utils.MakeTree;
-import com.zua.utils.R;
+import com.zua.util.MakeTree;
+import com.zua.util.R;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 

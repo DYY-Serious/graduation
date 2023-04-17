@@ -1,15 +1,12 @@
 package com.zua.service.Impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zua.mapper.ClassMapper;
 import com.zua.pojo.Class;
-import com.zua.pojo.Menu;
 import com.zua.service.ClassService;
-import com.zua.utils.MakeTree;
+import com.zua.util.MakeTree;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service

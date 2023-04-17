@@ -3,7 +3,7 @@ package com.zua.controller;
 import com.zua.annotation.Auth;
 import com.zua.pojo.SeatInfo;
 import com.zua.service.SeatService;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.SeatInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

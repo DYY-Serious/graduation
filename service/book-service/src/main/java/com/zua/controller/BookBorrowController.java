@@ -1,21 +1,18 @@
 package com.zua.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zua.annotation.Auth;
 import com.zua.pojo.Book_Borrow;
-import com.zua.pojo.BorrowInfo;
+import com.zua.pojo.PotDay;
 import com.zua.pojo.ReturnBook;
 import com.zua.service.BookBorrowService;
-import com.zua.service.BookSerivce;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.R;
+import com.zua.util.JwtUtils;
+import com.zua.util.R;
 import com.zua.vo.BookBorrowVo;
 import com.zua.vo.BorrowInfoVo;
 import com.zua.vo.ReturnBookVo;
 import io.jsonwebtoken.Claims;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -193,8 +190,8 @@ public class BookBorrowController {
      */
     @Auth
     @PostMapping("addTime")
-    public R addTime(@RequestBody Book_Borrow book_borrow) {
-        return bookBorrowService.addTime(book_borrow);
+    public R addTime(@RequestBody PotDay potDay) {
+        return bookBorrowService.addTime(potDay);
     }
 
     /**
@@ -204,7 +201,6 @@ public class BookBorrowController {
     @Auth
     @PostMapping("applyBook")
     public R applyBook(@RequestBody Book_Borrow book_borrow) {
-        bookBorrowService.updateById(book_borrow);
-        return R.SUCCESS("审核成功");
+        return bookBorrowService.updateReturnTime(book_borrow);
     }
 }

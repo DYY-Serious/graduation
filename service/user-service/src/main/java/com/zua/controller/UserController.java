@@ -9,9 +9,9 @@ import com.zua.pojo.UserRole;
 import com.zua.service.RoleService;
 import com.zua.service.UserRoleService;
 import com.zua.service.UserService;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.R;
-import io.jsonwebtoken.Claims;
+import com.zua.util.JwtUtils;
+import com.zua.util.R;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

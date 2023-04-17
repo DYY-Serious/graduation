@@ -9,13 +9,11 @@ import com.zua.mapper.BookTypeMapper;
 import com.zua.pojo.Book;
 import com.zua.pojo.BookType;
 import com.zua.pojo.CategoryEcharts;
-import com.zua.pojo.User;
 import com.zua.service.BookTypeService;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.CategoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;

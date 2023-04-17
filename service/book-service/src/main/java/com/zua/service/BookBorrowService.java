@@ -3,8 +3,9 @@ package com.zua.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zua.pojo.Book_Borrow;
+import com.zua.pojo.PotDay;
 import com.zua.pojo.ReturnBook;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.BookBorrowVo;
 import com.zua.vo.BorrowInfoVo;
 import com.zua.vo.ReturnBookVo;
@@ -66,5 +67,11 @@ public interface BookBorrowService extends IService<Book_Borrow> {
      * @param book_borrow
      * @return
      */
-    R addTime(Book_Borrow book_borrow);
+    R addTime(PotDay PotDay);
+
+    /**
+     * 审核图书
+     * @return
+     */
+    R updateReturnTime(Book_Borrow book_borrow);
 }

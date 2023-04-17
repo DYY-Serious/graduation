@@ -3,7 +3,7 @@ package com.zua.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zua.pojo.Student;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.StudentVo;
 
 public interface StudentService extends IService<Student> {

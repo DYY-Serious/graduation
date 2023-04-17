@@ -1,10 +1,8 @@
 package com.zua.MyException;
 
 import com.zua.self.SelfException;
-import com.zua.utils.ExceptionEnum;
-import com.zua.utils.R;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
+import com.zua.util.ExceptionEnum;
+import com.zua.util.R;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

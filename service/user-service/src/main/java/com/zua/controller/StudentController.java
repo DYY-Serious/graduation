@@ -7,15 +7,13 @@ import com.zua.pojo.Student;
 import com.zua.pojo.User;
 import com.zua.service.StudentService;
 import com.zua.service.UserService;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.MD5;
-import com.zua.utils.R;
+import com.zua.util.JwtUtils;
+import com.zua.util.MD5;
+import com.zua.util.R;
 import com.zua.vo.StudentVo;
 import com.zua.vo.UpdatePasswordVo;
 import io.jsonwebtoken.Claims;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

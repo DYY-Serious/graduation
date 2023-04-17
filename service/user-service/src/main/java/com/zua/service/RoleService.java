@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zua.pojo.Assign;
 import com.zua.pojo.Role;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.AssignVo;
 
 public interface RoleService extends IService<Role> {

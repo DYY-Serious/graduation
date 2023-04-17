@@ -1,7 +1,7 @@
 package com.zua.service;
 
 import com.zua.pojo.SeatInfo;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.SeatInfoVo;
 
 public interface SeatService {

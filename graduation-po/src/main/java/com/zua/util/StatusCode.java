@@ -1,4 +1,4 @@
-package com.zua.utils;
+package com.zua.util;
 
 public class StatusCode {
     //返回成功

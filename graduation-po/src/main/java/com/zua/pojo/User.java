@@ -27,6 +27,7 @@ public class User implements Serializable {
     private Integer isDeleted = 0;
     //账号状态,0-未激活，1-可用，2-停用
     private Integer accountStatus = 0;
+    private String image;
     //创建时间
     @TableField(fill = FieldFill.INSERT)
     private String createTime;

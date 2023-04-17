@@ -5,9 +5,8 @@ import com.zua.annotation.Auth;
 import com.zua.pojo.BookType;
 import com.zua.pojo.CategoryEcharts;
 import com.zua.service.BookTypeService;
-import com.zua.utils.JwtUtils;
-import com.zua.utils.R;
-import io.jsonwebtoken.Claims;
+import com.zua.util.JwtUtils;
+import com.zua.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

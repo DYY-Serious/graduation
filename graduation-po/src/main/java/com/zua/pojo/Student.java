@@ -24,6 +24,7 @@ public class Student implements Serializable {
     private String studentStatus = "1"; //用户状态 0：停用   1：启用
     private String classId;
     private String className;
+    private String image;
     //创建时间
     @TableField(fill = FieldFill.INSERT)
     private String createTime;

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zua.mapper.NoticeMapper;
 import com.zua.pojo.Notice;
 import com.zua.service.NoticeService;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.NoticeVo;
 import org.springframework.stereotype.Service;
 

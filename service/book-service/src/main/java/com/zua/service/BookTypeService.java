@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zua.pojo.BookType;
 import com.zua.pojo.CategoryEcharts;
-import com.zua.utils.R;
+import com.zua.util.R;
 
 public interface BookTypeService extends IService<BookType> {
 

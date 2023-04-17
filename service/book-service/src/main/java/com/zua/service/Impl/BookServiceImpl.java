@@ -9,15 +9,12 @@ import com.zua.pojo.Book;
 import com.zua.pojo.Book_Borrow;
 import com.zua.service.BookBorrowService;
 import com.zua.service.BookSerivce;
-import com.zua.utils.R;
+import com.zua.util.R;
 import com.zua.vo.BookVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements BookSerivce {

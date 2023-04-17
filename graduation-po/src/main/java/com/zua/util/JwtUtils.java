@@ -1,4 +1,4 @@
-package com.zua.utils;
+package com.zua.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
