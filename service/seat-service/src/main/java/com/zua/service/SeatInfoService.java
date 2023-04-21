@@ -10,4 +10,9 @@ import java.util.List;
 public interface SeatInfoService extends IService<SeatInfo> {
     IPage<SeatInfoVo> getListByType(IPage<SeatInfoVo> page, String id,SeatInfoVo seatInfoVo);
     IPage<SeatInfoVo> getListAll(IPage<SeatInfoVo> page,SeatInfoVo seatInfoVo);
+
+    /**
+     * 重置预约信息
+     */
+    void resetInfo();
 }

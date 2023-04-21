@@ -124,5 +124,17 @@ public class SeatServiceImpl extends ServiceImpl<SeatMapper, Seat> implements Se
         return R.SUCCESS("离开成功");
     }
 
+    /**
+     * 定时任务，重置座位预约状态
+     */
+    @Override
+    public void resetSeat() {
+        LambdaQueryWrapper<Seat> queryWrapper = new LambdaQueryWrapper<Seat>();
+        queryWrapper.eq(Seat::getStatus,"1");
+        Seat seat = new Seat();
+        seat.setStatus("0");
+        this.update(seat,queryWrapper);
+    }
+
 
 }

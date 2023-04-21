@@ -38,4 +38,9 @@ public interface SeatService {
      * @return
      */
     R leavSeat(String id);
+
+    /**
+     * 定时任务，重置座位预约状态
+     */
+    void resetSeat();
 }
