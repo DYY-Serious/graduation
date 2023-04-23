@@ -12,6 +12,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class DeployJarStarter {
     public static void main(String[] args) {
-        SpringApplication.run(DeployJarStarter.class);
+        SpringApplication.run(DeployJarStarter.class,args);
     }
 }
