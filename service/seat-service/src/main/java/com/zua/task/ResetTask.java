@@ -16,7 +16,7 @@ public class ResetTask {
     @Autowired
     private SeatInfoService seatInfoService;
 
-    @Scheduled(cron = "0 0 24 * * ?")
+    @Scheduled(cron = "0 0 22 * * ?")
     @Transactional
     public void resetSeat() {
         seatService.resetSeat();
